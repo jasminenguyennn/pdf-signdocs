@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/pdftron-sign-app/static/css/main.34f37b0f.chunk.css",
-    "main.js": "/pdftron-sign-app/static/js/main.cb0c6255.chunk.js",
-    "main.js.map": "/pdftron-sign-app/static/js/main.cb0c6255.chunk.js.map",
-    "runtime-main.js": "/pdftron-sign-app/static/js/runtime-main.249fd033.js",
-    "runtime-main.js.map": "/pdftron-sign-app/static/js/runtime-main.249fd033.js.map",
-    "static/css/2.1d8c5276.chunk.css": "/pdftron-sign-app/static/css/2.1d8c5276.chunk.css",
-    "static/js/2.d15bcdc1.chunk.js": "/pdftron-sign-app/static/js/2.d15bcdc1.chunk.js",
-    "static/js/2.d15bcdc1.chunk.js.map": "/pdftron-sign-app/static/js/2.d15bcdc1.chunk.js.map",
-    "index.html": "/pdftron-sign-app/index.html",
-    "static/css/2.1d8c5276.chunk.css.map": "/pdftron-sign-app/static/css/2.1d8c5276.chunk.css.map",
-    "static/css/main.34f37b0f.chunk.css.map": "/pdftron-sign-app/static/css/main.34f37b0f.chunk.css.map",
-    "static/js/2.d15bcdc1.chunk.js.LICENSE.txt": "/pdftron-sign-app/static/js/2.d15bcdc1.chunk.js.LICENSE.txt"
+    "main.css": "/pdf-signdocs/static/css/main.34f37b0f.chunk.css",
+    "main.js": "/pdf-signdocs/static/js/main.cb0c6255.chunk.js",
+    "main.js.map": "/pdf-signdocs/static/js/main.cb0c6255.chunk.js.map",
+    "runtime-main.js": "/pdf-signdocs/static/js/runtime-main.7548b51c.js",
+    "runtime-main.js.map": "/pdf-signdocs/static/js/runtime-main.7548b51c.js.map",
+    "static/css/2.1d8c5276.chunk.css": "/pdf-signdocs/static/css/2.1d8c5276.chunk.css",
+    "static/js/2.8124d7d6.chunk.js": "/pdf-signdocs/static/js/2.8124d7d6.chunk.js",
+    "static/js/2.8124d7d6.chunk.js.map": "/pdf-signdocs/static/js/2.8124d7d6.chunk.js.map",
+    "index.html": "/pdf-signdocs/index.html",
+    "static/css/2.1d8c5276.chunk.css.map": "/pdf-signdocs/static/css/2.1d8c5276.chunk.css.map",
+    "static/css/main.34f37b0f.chunk.css.map": "/pdf-signdocs/static/css/main.34f37b0f.chunk.css.map",
+    "static/js/2.8124d7d6.chunk.js.LICENSE.txt": "/pdf-signdocs/static/js/2.8124d7d6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.249fd033.js",
+    "static/js/runtime-main.7548b51c.js",
     "static/css/2.1d8c5276.chunk.css",
-    "static/js/2.d15bcdc1.chunk.js",
+    "static/js/2.8124d7d6.chunk.js",
     "static/css/main.34f37b0f.chunk.css",
     "static/js/main.cb0c6255.chunk.js"
   ]
