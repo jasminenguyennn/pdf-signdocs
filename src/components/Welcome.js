@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
-import Profile from './Profile/Profile';
-import { navigate } from '@reach/router';
-import { useDispatch } from 'react-redux';
-import SignList from './Lists/SignList';
-import SignedList from './Lists/SignedList';
-import { resetDocToView } from './ViewDocument/ViewDocumentSlice';
-import { resetDocToSign } from './SignDocument/SignDocumentSlice';
-import { Box, Button, Container, Heading } from 'gestalt';
-import 'gestalt/dist/gestalt.css';
-
+import React, { useEffect } from "react";
+import Profile from "./Profile/Profile";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import SignList from "./Lists/SignList";
+import SignedList from "./Lists/SignedList";
+import { resetDocToView } from "./ViewDocument/ViewDocumentSlice";
+import { resetDocToSign } from "./SignDocument/SignDocumentSlice";
+import { Box, Button, Container, Heading } from "gestalt";
+import "gestalt/dist/gestalt.css";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(resetDocToView());
     dispatch(resetDocToSign());
@@ -33,7 +32,7 @@ const ProfilePage = () => {
         </Box>
         <Box padding={2}>
           <Button
-            onClick={event => {
+            onClick={(event) => {
               navigate(`/assignUsers`);
             }}
             text="Prepare Document for Signing"

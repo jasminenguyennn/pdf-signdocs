@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Table, Text, Spinner } from 'gestalt';
-import 'gestalt/dist/gestalt.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchForDocumentToSign } from '../../firebase/firebase';
-import { selectUser } from '../../firebase/firebaseSlice';
-import { setDocToSign } from '../SignDocument/SignDocumentSlice';
-import { navigate } from '@reach/router';
+import React, { useEffect, useState } from "react";
+import { Button, Table, Text, Spinner } from "gestalt";
+import "gestalt/dist/gestalt.css";
+import { useDispatch, useSelector } from "react-redux";
+import { searchForDocumentToSign } from "../../firebase/firebase";
+import { selectUser } from "../../firebase/firebaseSlice";
+import { setDocToSign } from "../SignDocument/SignDocumentSlice";
+import { useNavigate } from "react-router-dom";
 
 const SignList = () => {
   const user = useSelector(selectUser);
   const { email } = user;
-
+  const navigate = useNavigate();
   const [docs, setDocs] = useState([]);
   const [show, setShow] = useState(true);
 
@@ -45,17 +45,23 @@ const SignList = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {docs.map(doc => (
+                {docs.map((doc) => (
                   <Table.Row key={doc.docRef}>
                     <Table.Cell>
                       <Text>{doc.email}</Text>
                     </Table.Cell>
                     <Table.Cell>
-                      <Text>{doc.requestedTime ? new Date(doc.requestedTime.seconds*1000).toDateString() : ''}</Text>
+                      <Text>
+                        {doc.requestedTime
+                          ? new Date(
+                              doc.requestedTime.seconds * 1000
+                            ).toDateString()
+                          : ""}
+                      </Text>
                     </Table.Cell>
                     <Table.Cell>
                       <Button
-                        onClick={event => {
+                        onClick={(event) => {
                           const { docRef, docId } = doc;
                           dispatch(setDocToSign({ docRef, docId }));
                           navigate(`/signDocument`);
@@ -70,7 +76,7 @@ const SignList = () => {
               </Table.Body>
             </Table>
           ) : (
-            'You do not have any documents to sign'
+            "You do not have any documents to sign"
           )}
         </div>
       )}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link, navigate } from '@reach/router';
-import { auth, signInWithGoogle } from '../../firebase/firebase';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, signInWithGoogle } from "../../firebase/firebase";
 import {
   Box,
   Button,
@@ -9,16 +9,16 @@ import {
   Text,
   TextField,
   Heading,
-} from 'gestalt';
-import 'gestalt/dist/gestalt.css';
+} from "gestalt";
+import "gestalt/dist/gestalt.css";
 
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const signInWithEmailAndPasswordHandler = (event, email, password) => {
-    auth.signInWithEmailAndPassword(email, password).catch(error => {
+    auth.signInWithEmailAndPassword(email, password).catch((error) => {
       setError("Error signing in with password and email!");
       console.error("Error signing in with password and email", error);
     });
@@ -35,7 +35,7 @@ const SignIn = () => {
           <Box padding={2}>
             <TextField
               id="email"
-              onChange={event => setEmail(event.value)}
+              onChange={(event) => setEmail(event.value)}
               placeholder="Enter your email"
               label="Email"
               value={email}
@@ -45,7 +45,7 @@ const SignIn = () => {
           <Box padding={2}>
             <TextField
               id="password"
-              onChange={event => setPassword(event.value)}
+              onChange={(event) => setPassword(event.value)}
               placeholder="Enter your password"
               label="Password"
               value={password}
@@ -54,9 +54,9 @@ const SignIn = () => {
           </Box>
           <Box padding={2}>
             <Button
-              onClick={event => {
+              onClick={(event) => {
                 signInWithEmailAndPasswordHandler(event, email, password);
-                navigate('/');
+                navigate("/");
               }}
               text="Sign in"
               color="blue"
@@ -68,7 +68,12 @@ const SignIn = () => {
             <Text>or</Text>
           </Box>
           <Box padding={2}>
-            <Button onClick={signInWithGoogle} text="Sign in with Google" color="red" inline />
+            <Button
+              onClick={signInWithGoogle}
+              text="Sign in with Google"
+              color="red"
+              inline
+            />
           </Box>
           <Box padding={2}>
             <Text>Don't have an account?</Text>

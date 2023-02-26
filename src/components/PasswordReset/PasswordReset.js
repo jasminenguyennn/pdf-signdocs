@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, navigate } from '@reach/router';
+import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, Toast, Container, TextField, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
@@ -10,6 +10,8 @@ const PasswordReset = () => {
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+  
   const sendResetEmail = event => {
     auth
       .sendPasswordResetEmail(email)

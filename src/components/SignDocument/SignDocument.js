@@ -1,18 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
-import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
-import { selectDocToSign } from './SignDocumentSlice';
-import { storage, updateDocumentToSign } from '../../firebase/firebase';
-import { selectUser } from '../../firebase/firebaseSlice';
-import WebViewer from '@pdftron/webviewer';
-import 'gestalt/dist/gestalt.css';
-import './SignDocument.css';
+import React, { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Box, Column, Heading, Row, Stack, Button } from "gestalt";
+import { selectDocToSign } from "./SignDocumentSlice";
+import { storage, updateDocumentToSign } from "../../firebase/firebase";
+import { selectUser } from "../../firebase/firebaseSlice";
+import WebViewer from "@pdftron/webviewer";
+import "gestalt/dist/gestalt.css";
+import "./SignDocument.css";
 
 const SignDocument = () => {
   const [annotationManager, setAnnotationManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
-
+  const navigate = useNavigate();
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
   const { docRef, docId } = doc;
@@ -23,28 +23,28 @@ const SignDocument = () => {
   useEffect(() => {
     WebViewer(
       {
-        path: 'webviewer',
+        path: "webviewer",
         disabledElements: [
-          'ribbons',
-          'toggleNotesButton',
-          'searchButton',
-          'menuButton',
-          'rubberStampToolGroupButton',
-          'stampToolGroupButton',
-          'fileAttachmentToolGroupButton',
-          'calloutToolGroupButton',
-          'undo',
-          'redo',
-          'eraserToolButton'
+          "ribbons",
+          "toggleNotesButton",
+          "searchButton",
+          "menuButton",
+          "rubberStampToolGroupButton",
+          "stampToolGroupButton",
+          "fileAttachmentToolGroupButton",
+          "calloutToolGroupButton",
+          "undo",
+          "redo",
+          "eraserToolButton",
         ],
       },
-      viewer.current,
-    ).then(async instance => {
+      viewer.current
+    ).then(async (instance) => {
       const { documentViewer, annotationManager, Annotations } = instance.Core;
       setAnnotationManager(annotationManager);
 
       // select only the insert group
-      instance.UI.setToolbarGroup('toolbarGroup-Insert');
+      instance.UI.setToolbarGroup("toolbarGroup-Insert");
 
       // load document
       const storageRef = storage.ref();
@@ -54,29 +54,32 @@ const SignDocument = () => {
       const normalStyles = (widget) => {
         if (widget instanceof Annotations.TextWidgetAnnotation) {
           return {
-            'background-color': '#a5c7ff',
-            color: 'white',
+            "background-color": "#a5c7ff",
+            color: "white",
           };
         } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
           return {
-            border: '1px solid #a5c7ff',
+            border: "1px solid #a5c7ff",
           };
         }
       };
 
-      annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
-        if (imported && action === 'add') {
-          annotations.forEach(function(annot) {
-            if (annot instanceof Annotations.WidgetAnnotation) {
-              Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
-              if (!annot.fieldName.startsWith(email)) {
-                annot.Hidden = true;
-                annot.Listable = false;
+      annotationManager.on(
+        "annotationChanged",
+        (annotations, action, { imported }) => {
+          if (imported && action === "add") {
+            annotations.forEach(function (annot) {
+              if (annot instanceof Annotations.WidgetAnnotation) {
+                Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
+                if (!annot.fieldName.startsWith(email)) {
+                  annot.Hidden = true;
+                  annot.Listable = false;
+                }
               }
-            }
-          });
+            });
+          }
         }
-      });
+      );
     });
   }, [docRef, email]);
 
@@ -84,30 +87,33 @@ const SignDocument = () => {
     let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
       annotationManager.jumpToAnnotation(annots[annotPosition]);
-      if (annots[annotPosition+1]) {
-        setAnnotPosition(annotPosition+1);
+      if (annots[annotPosition + 1]) {
+        setAnnotPosition(annotPosition + 1);
       }
     }
-  }
+  };
 
   const prevField = () => {
     let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
       annotationManager.jumpToAnnotation(annots[annotPosition]);
-      if (annots[annotPosition-1]) {
-        setAnnotPosition(annotPosition-1);
+      if (annots[annotPosition - 1]) {
+        setAnnotPosition(annotPosition - 1);
       }
     }
-  }
+  };
 
   const completeSigning = async () => {
-    const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
+    const xfdf = await annotationManager.exportAnnotations({
+      widgets: false,
+      links: false,
+    });
     await updateDocumentToSign(docId, email, xfdf);
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
-    <div className={'prepareDocument'}>
+    <div className={"prepareDocument"}>
       <Box display="flex" direction="row" flex="grow">
         <Column span={2}>
           <Box padding={3}>

@@ -1,16 +1,16 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
-import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
-import { selectDocToView } from './ViewDocumentSlice';
-import { storage } from '../../firebase/firebase';
-import WebViewer from '@pdftron/webviewer';
-import 'gestalt/dist/gestalt.css';
-import './ViewDocument.css';
+import React, { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Box, Column, Heading, Row, Stack, Button } from "gestalt";
+import { selectDocToView } from "./ViewDocumentSlice";
+import { storage } from "../../firebase/firebase";
+import WebViewer from "@pdftron/webviewer";
+import "gestalt/dist/gestalt.css";
+import "./ViewDocument.css";
 
 const ViewDocument = () => {
   const [instance, setInstance] = useState(null);
-
+  const navigate = useNavigate();
   const doc = useSelector(selectDocToView);
   const { docRef } = doc;
 
@@ -19,17 +19,13 @@ const ViewDocument = () => {
   useEffect(() => {
     WebViewer(
       {
-        path: 'webviewer',
-        disabledElements: [
-          'ribbons',
-          'toggleNotesButton',
-          'contextMenuPopup',
-        ],
+        path: "webviewer",
+        disabledElements: ["ribbons", "toggleNotesButton", "contextMenuPopup"],
       },
-      viewer.current,
-    ).then(async instance => {
+      viewer.current
+    ).then(async (instance) => {
       // select only the view group
-      instance.UI.setToolbarGroup('toolbarGroup-View');
+      instance.UI.setToolbarGroup("toolbarGroup-View");
 
       setInstance(instance);
 
@@ -46,11 +42,11 @@ const ViewDocument = () => {
   };
 
   const doneViewing = async () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
-    <div className={'prepareDocument'}>
+    <div className={"prepareDocument"}>
       <Box display="flex" direction="row" flex="grow">
         <Column span={2}>
           <Box padding={3}>
